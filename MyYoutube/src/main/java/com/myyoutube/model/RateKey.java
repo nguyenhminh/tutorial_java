@@ -8,9 +8,9 @@ import java.io.Serializable;
 
 @Embeddable
 public class RateKey implements Serializable {
-    @Column(name = "id_video")
+    @Column(name = "id_video", updatable = false, insertable = false)
     Integer idVideo;
 
-    @Column(name = "id_user")
+    @Column(name = "id_user", updatable = false, insertable = false)
     Integer idUser;
 }

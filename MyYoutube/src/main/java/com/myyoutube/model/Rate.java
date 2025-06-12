@@ -8,17 +8,19 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "rate")
-public class Rate {
+public class  Rate {
     @EmbeddedId
     private RateKey rateKey;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_user", insertable = false, updatable = false)
-    private User idUser;
+    // Nhiều Rate thuộc 1 Video
+    @ManyToOne
+    @JoinColumn(name = "id_video")
+    private Video videoId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_video", insertable = false, updatable = false)
-    private Video idVideo;
+    // Nhiều Rate do 1 User thực hiện
+    @ManyToOne
+    @JoinColumn(name = "id_user")
+    private User user;
 
     @Column(name = "star")
     private Integer star;

@@ -1,6 +1,7 @@
 package com.myyoutube.model;
 
 import jakarta.persistence.*;
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,7 +16,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_user", nullable = false)
-    private Integer id;
+    private Integer userId;
 
     @Column(name = "username", length = 50)
     private String username;
@@ -29,10 +30,23 @@ public class User {
     @Column(name = "is_admin")
     private Boolean isAdmin;
 
-    @OneToMany
-    private Set<com.myyoutube.model.Rate> rates = new LinkedHashSet<>();
+    // 1 User upload nhiều Video
+    @OneToMany(mappedBy = "user")
+    private List<Video> videos;
 
-    @OneToMany(mappedBy = "uploadBy")
-    private Set<Video> videos = new LinkedHashSet<>();
+    // 1 User có thể đánh giá nhiều video
+    @OneToMany(mappedBy = "user")
+    private List<Rate> rates;
 
+    /*
+    Lưu ý
+    Nếu bảng A có b_id là khóa ngoại → Class A:
+        @ManyToOne
+        @JoinColumn(name = "b_id")
+        private B b;
+
+    Và Class B
+        @OneToMany(mappedBy = "b")
+        private List<A> aList;
+     */
 }
